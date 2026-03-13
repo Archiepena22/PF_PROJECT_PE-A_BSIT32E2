@@ -56,7 +56,7 @@ export default function Play() {
     }
 
     const data = await res.json()
-    setFeedback(data.correct ? 'Correct!' : 'Try again')
+    setFeedback(data.correct ? 'Correct! Next puzzle loading...' : 'Try again')
 
     if (data.correct && data.nextAvailable) {
       await loadNext()
@@ -64,22 +64,28 @@ export default function Play() {
   }
 
   return (
-    <div className="card">
-      <h2>Play</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Guess the Word</h2>
+          <p className="muted">Every puzzle has one answer. No repeats.</p>
+        </div>
+      </div>
       {feedback && <p className="note">{feedback}</p>}
       {!puzzle && !feedback && <p>Loading...</p>}
       {puzzle && (
         <>
-          <div className="grid">
+          <div className="image-grid-large">
             {puzzle.images.map((url) => (
               <img key={url} src={url} alt="puzzle" />
             ))}
           </div>
-          <form onSubmit={submitGuess} className="form">
-            <label>
-              Your guess
-              <input value={guess} onChange={(e) => setGuess(e.target.value)} />
-            </label>
+          <form onSubmit={submitGuess} className="guess-form">
+            <input
+              placeholder="Type your answer"
+              value={guess}
+              onChange={(e) => setGuess(e.target.value)}
+            />
             <button type="submit">Submit</button>
           </form>
         </>

@@ -68,31 +68,41 @@ app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
-var imgCat = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Cat", Tags = new List<string> { "animal", "pet" } };
-var imgDog = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Dog", Tags = new List<string> { "animal", "pet" } };
-var imgBone = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Bone", Tags = new List<string> { "animal" } };
-var imgMilk = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Milk", Tags = new List<string> { "food" } };
-var imgApple = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Apple", Tags = new List<string> { "food", "fruit" } };
-var imgBanana = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Banana", Tags = new List<string> { "food", "fruit" } };
-var imgOrange = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Orange", Tags = new List<string> { "food", "fruit" } };
-var imgBook = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Book", Tags = new List<string> { "school" } };
-var imgPencil = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Pencil", Tags = new List<string> { "school" } };
-var imgRuler = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Ruler", Tags = new List<string> { "school" } };
-var imgClock = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Clock", Tags = new List<string> { "time" } };
-var imgSun = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Sun", Tags = new List<string> { "weather" } };
-var imgMoon = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Moon", Tags = new List<string> { "weather" } };
-var imgRain = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Rain", Tags = new List<string> { "weather" } };
-var imgSnow = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Snow", Tags = new List<string> { "weather" } };
-var imgRun = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Run", Tags = new List<string> { "verb" } };
-var imgJump = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Jump", Tags = new List<string> { "verb" } };
-var imgSwim = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Swim", Tags = new List<string> { "verb" } };
-var imgDance = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Dance", Tags = new List<string> { "verb" } };
+var baseUrl = "http://localhost:5076/uploads/seed";
+
+var imgCat = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/cat.svg", Tags = new List<string> { "animal", "pet" } };
+var imgDog = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/dog.svg", Tags = new List<string> { "animal", "pet" } };
+var imgBone = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/bone.svg", Tags = new List<string> { "animal" } };
+var imgMilk = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/milk.svg", Tags = new List<string> { "food", "dairy" } };
+var imgApple = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/apple.svg", Tags = new List<string> { "food", "fruit" } };
+var imgBanana = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/banana.svg", Tags = new List<string> { "food", "fruit" } };
+var imgOrange = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/orange.svg", Tags = new List<string> { "food", "fruit" } };
+var imgGrape = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/grape.svg", Tags = new List<string> { "food", "fruit" } };
+var imgBook = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/book.svg", Tags = new List<string> { "school" } };
+var imgPencil = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/pencil.svg", Tags = new List<string> { "school" } };
+var imgRuler = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/ruler.svg", Tags = new List<string> { "school" } };
+var imgClock = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/clock.svg", Tags = new List<string> { "time" } };
+var imgSun = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/sun.svg", Tags = new List<string> { "weather" } };
+var imgMoon = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/moon.svg", Tags = new List<string> { "weather" } };
+var imgRain = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/rain.svg", Tags = new List<string> { "weather" } };
+var imgSnow = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/snow.svg", Tags = new List<string> { "weather" } };
+var imgNote = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/note.svg", Tags = new List<string> { "music" } };
+var imgGuitar = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/guitar.svg", Tags = new List<string> { "music" } };
+var imgDrum = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/drum.svg", Tags = new List<string> { "music" } };
+var imgPiano = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/piano.svg", Tags = new List<string> { "music" } };
+var imgPlane = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/plane.svg", Tags = new List<string> { "travel" } };
+var imgPassport = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/passport.svg", Tags = new List<string> { "travel" } };
+var imgSuitcase = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/suitcase.svg", Tags = new List<string> { "travel" } };
+var imgMap = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = $"{baseUrl}/map.svg", Tags = new List<string> { "travel" } };
 
 var seedImages = new List<ImageAsset>
 {
-    imgCat, imgDog, imgBone, imgMilk, imgApple, imgBanana, imgOrange,
-    imgBook, imgPencil, imgRuler, imgClock, imgSun, imgMoon, imgRain, imgSnow,
-    imgRun, imgJump, imgSwim, imgDance
+    imgCat, imgDog, imgBone, imgMilk,
+    imgApple, imgBanana, imgOrange, imgGrape,
+    imgBook, imgPencil, imgRuler, imgClock,
+    imgSun, imgMoon, imgRain, imgSnow,
+    imgNote, imgGuitar, imgDrum, imgPiano,
+    imgPlane, imgPassport, imgSuitcase, imgMap
 };
 
 var seedPuzzles = new List<Puzzle>
@@ -110,7 +120,7 @@ var seedPuzzles = new List<Puzzle>
         Id = Guid.NewGuid().ToString(),
         Answer = "fruit",
         Difficulty = "easy",
-        ImageIds = new List<string> { imgApple.Id, imgBanana.Id, imgOrange.Id, imgMilk.Id },
+        ImageIds = new List<string> { imgApple.Id, imgBanana.Id, imgOrange.Id, imgGrape.Id },
         AcceptableAnswers = new List<string> { "fruits" }
     },
     new()
@@ -130,9 +140,16 @@ var seedPuzzles = new List<Puzzle>
     new()
     {
         Id = Guid.NewGuid().ToString(),
-        Answer = "action",
+        Answer = "music",
         Difficulty = "medium",
-        ImageIds = new List<string> { imgRun.Id, imgJump.Id, imgSwim.Id, imgDance.Id }
+        ImageIds = new List<string> { imgNote.Id, imgGuitar.Id, imgDrum.Id, imgPiano.Id }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Answer = "travel",
+        Difficulty = "medium",
+        ImageIds = new List<string> { imgPlane.Id, imgPassport.Id, imgSuitcase.Id, imgMap.Id }
     }
 };
 
@@ -149,10 +166,10 @@ var seedPacks = new List<Pack>
     new()
     {
         Id = Guid.NewGuid().ToString(),
-        Name = "Weather & Action",
-        Description = "A mix of verbs and sky",
+        Name = "World & Sound",
+        Description = "Travel and music themes",
         Published = true,
-        PuzzleIds = new List<string> { seedPuzzles[3].Id, seedPuzzles[4].Id }
+        PuzzleIds = new List<string> { seedPuzzles[3].Id, seedPuzzles[4].Id, seedPuzzles[5].Id }
     }
 };
 

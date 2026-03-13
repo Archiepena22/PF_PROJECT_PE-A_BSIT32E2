@@ -119,8 +119,13 @@ export default function AdminImages() {
   }
 
   return (
-    <div className="card">
-      <h2>Admin Images</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Image Library</h2>
+          <p className="muted">Upload or link images to power your puzzles.</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
 
       <div className="grid-two">
@@ -150,7 +155,7 @@ export default function AdminImages() {
                 <span key={tag} className="chip">
                   {tag}
                   <button type="button" onClick={() => removeTag(img.id, tag)}>
-                    ×
+                    ?
                   </button>
                 </span>
               ))}

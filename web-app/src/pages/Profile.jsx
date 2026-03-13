@@ -22,18 +22,28 @@ export default function Profile() {
   }, [token])
 
   return (
-    <div className="card">
-      <h2>Profile</h2>
-      <p>Signed in as {user?.email}</p>
-      {progress ? (
-        <ul>
-          <li>Solved: {progress.solved}</li>
-          <li>Attempts: {progress.attempts}</li>
-          <li>Score: {progress.score}</li>
-        </ul>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Your Progress</h2>
+          <p className="muted">Track solved puzzles and score.</p>
+        </div>
+      </div>
+      <div className="stat-grid">
+        <div className="stat-card">
+          <h3>{progress?.solved ?? '-'}</h3>
+          <p>Solved</p>
+        </div>
+        <div className="stat-card">
+          <h3>{progress?.attempts ?? '-'}</h3>
+          <p>Attempts</p>
+        </div>
+        <div className="stat-card">
+          <h3>{progress?.score ?? '-'}</h3>
+          <p>Score</p>
+        </div>
+      </div>
+      <p className="muted">Signed in as {user?.email}</p>
     </div>
   )
 }

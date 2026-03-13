@@ -65,8 +65,13 @@ export default function AdminTags() {
   }
 
   return (
-    <div className="card">
-      <h2>Admin Tags</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Tag Library</h2>
+          <p className="muted">Tags help you filter and build puzzles faster.</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
       <form onSubmit={addTag} className="form">
         <label>

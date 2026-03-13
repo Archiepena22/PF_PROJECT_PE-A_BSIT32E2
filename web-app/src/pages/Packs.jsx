@@ -29,18 +29,25 @@ export default function Packs() {
   }, [token])
 
   return (
-    <div className="card">
-      <h2>Packs</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Choose a Pack</h2>
+          <p className="muted">Packs are shuffled every time you visit.</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
       {!error && packs.length === 0 && <p>No packs yet.</p>}
-      <div className="list">
+      <div className="pack-grid">
         {packs.map((pack) => (
-          <div key={pack.id} className="list-item">
+          <div key={pack.id} className="pack-card">
             <div>
-              <strong>{pack.name}</strong>
+              <h3>{pack.name}</h3>
               <p>{pack.description}</p>
             </div>
-            <Link to={`/play/${pack.id}`}>Play</Link>
+            <Link to={`/play/${pack.id}`} className="cta">
+              Play pack
+            </Link>
           </div>
         ))}
       </div>

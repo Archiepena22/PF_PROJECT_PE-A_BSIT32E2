@@ -8,6 +8,9 @@ obj/
 # Env
 .env
 
+# Local data
+resource-api/data/*.json
+
 # OS
 .DS_Store
 Thumbs.db

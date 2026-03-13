@@ -16,10 +16,16 @@ export default function App() {
   const { user, logout } = useAuth()
 
   return (
-    <div>
-      <header className="nav">
-        <h1>4 Pics 1 Word</h1>
-        <nav>
+    <div className="shell">
+      <header className="topbar">
+        <div className="brand">
+          <div className="brand-icon">4P</div>
+          <div>
+            <h1>4 Pics 1 Word</h1>
+            <p>Find the word that connects the four clues</p>
+          </div>
+        </div>
+        <nav className="nav-links">
           <NavLink to="/packs">Packs</NavLink>
           <NavLink to="/profile">Profile</NavLink>
           {user?.role === 'admin' && (
@@ -33,14 +39,14 @@ export default function App() {
           {!user && <NavLink to="/login">Login</NavLink>}
           {!user && <NavLink to="/register">Register</NavLink>}
           {user && (
-            <button type="button" onClick={logout} className="link-button">
+            <button type="button" onClick={logout} className="ghost">
               Logout
             </button>
           )}
         </nav>
       </header>
 
-      <main className="container">
+      <main className="content">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

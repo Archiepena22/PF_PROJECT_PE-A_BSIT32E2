@@ -90,8 +90,13 @@ export default function AdminPuzzles() {
   }
 
   return (
-    <div className="card">
-      <h2>Admin Puzzles</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Puzzle Builder</h2>
+          <p className="muted">Choose four images that point to one word.</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
 
       <div className="split">

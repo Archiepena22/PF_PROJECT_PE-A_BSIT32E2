@@ -82,8 +82,13 @@ export default function AdminPacks() {
   }
 
   return (
-    <div className="card">
-      <h2>Admin Packs</h2>
+    <div className="panel">
+      <div className="panel-header">
+        <div>
+          <h2>Pack Composer</h2>
+          <p className="muted">Bundle puzzles and publish them to players.</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
 
       <div className="split">
