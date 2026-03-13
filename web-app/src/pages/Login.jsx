@@ -21,10 +21,11 @@ export default function Login() {
   }
 
   return (
-    <div className="auth-layout">
-      <div className="auth-card">
+    <div className="login-screen">
+      <div className="login-card">
+        <div className="login-badge">4P</div>
         <h2>Welcome Back</h2>
-        <p className="muted">Log in to continue your puzzle streak.</p>
+        <p className="muted">Solve fresh packs every day.</p>
         <form onSubmit={onSubmit} className="form">
           <label>
             Email
@@ -37,15 +38,7 @@ export default function Login() {
           {error && <p className="error">{error}</p>}
           <button type="submit">Sign in</button>
         </form>
-      </div>
-      <div className="auth-side">
-        <h3>Daily Brain Teasers</h3>
-        <p>Each pack is shuffled, each puzzle is fresh. Can you solve them all?</p>
-        <div className="badge-row">
-          <span className="badge">Random Packs</span>
-          <span className="badge">Smart Hints</span>
-          <span className="badge">Admin CMS</span>
-        </div>
+        <div className="login-hint">Use admin@4p1w.local / Admin123!</div>
       </div>
     </div>
   )

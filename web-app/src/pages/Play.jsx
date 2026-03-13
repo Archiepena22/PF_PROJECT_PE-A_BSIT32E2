@@ -9,10 +9,10 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const buildKeyboard = (seed = '') => {
   const base = seed.toUpperCase().replace(/[^A-Z]/g, '')
   const pool = new Set(base.split(''))
-  while (pool.size < 12) {
+  while (pool.size < 14) {
     pool.add(LETTERS[Math.floor(Math.random() * LETTERS.length)])
   }
-  return Array.from(pool).slice(0, 12)
+  return Array.from(pool).slice(0, 14)
 }
 
 export default function Play() {
@@ -23,7 +23,7 @@ export default function Play() {
   const [feedback, setFeedback] = useState('')
   const [status, setStatus] = useState('idle')
   const [keyboard, setKeyboard] = useState([])
-  const [coins, setCoins] = useState(250)
+  const [coins, setCoins] = useState(60)
   const [level, setLevel] = useState(1)
 
   const loadNext = async () => {
@@ -101,36 +101,35 @@ export default function Play() {
 
   const slots = useMemo(() => {
     const chars = guess.split('')
-    return Array.from({ length: 8 }).map((_, i) => chars[i] || '')
+    return Array.from({ length: 6 }).map((_, i) => chars[i] || '')
   }, [guess])
 
   return (
-    <div className="game-screen">
-      <div className="game-top">
-        <button type="button" className="icon-btn" onClick={() => window.history.back()}>
-          ? Back
+    <div className="classic-screen">
+      <div className="classic-top">
+        <button type="button" className="menu-btn" aria-label="menu">
+          ?
         </button>
+        <div className="level-pill">Level {level}</div>
         <div className="coin-pill">
           <span>{coins}</span>
-          <span className="coin-dot">?</span>
+          <span className="coin">?</span>
         </div>
       </div>
 
-      <div className="level">Level {level}</div>
-
-      {feedback && <div className="toast">{feedback}</div>}
-      {status === 'loading' && <div className="toast">Loading...</div>}
-      {status === 'completed' && <div className="toast">Pack completed!</div>}
+      {feedback && <div className="classic-toast">{feedback}</div>}
+      {status === 'loading' && <div className="classic-toast">Loading...</div>}
+      {status === 'completed' && <div className="classic-toast">Pack completed!</div>}
 
       {puzzle && (
         <>
-          <div className="photo-grid">
+          <div className="classic-grid">
             {puzzle.images.map((url) => (
               <img key={url} src={url} alt="puzzle" />
             ))}
           </div>
 
-          <div className="answer-slots">
+          <div className="classic-slots">
             {slots.map((char, idx) => (
               <div key={idx} className="slot">
                 {char}
@@ -138,16 +137,21 @@ export default function Play() {
             ))}
           </div>
 
-          <div className="keyboard">
+          <div className="classic-actions">
+            <button type="button" className="action red">Ask Friends</button>
+            <button type="button" className="action blue">Hints</button>
+          </div>
+
+          <div className="classic-keys">
             <div className="key-row">
-              {keyboard.slice(0, 6).map((key) => (
+              {keyboard.slice(0, 7).map((key) => (
                 <button key={key} className="key" type="button" onClick={() => onKeyPress(key)}>
                   {key}
                 </button>
               ))}
             </div>
             <div className="key-row">
-              {keyboard.slice(6, 12).map((key) => (
+              {keyboard.slice(7, 14).map((key) => (
                 <button key={key} className="key" type="button" onClick={() => onKeyPress(key)}>
                   {key}
                 </button>
