@@ -93,3 +93,42 @@ button {
 .error {
   color: #b02020;
 }
+
+.note {
+  color: #2d5c2f;
+  font-weight: 600;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2d9cc;
+  border-radius: 10px;
+}
+
+.list-item a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #2e2a24;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.grid img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #e2d9cc;
+}
