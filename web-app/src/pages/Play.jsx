@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
 
 const RESOURCE_BASE_URL = 'http://localhost:5076'
+
+const normalize = (value) => value.replace(/\s+/g, '').toLowerCase()
 
 export default function Play() {
   const { packId } = useParams()
@@ -10,14 +12,17 @@ export default function Play() {
   const [puzzle, setPuzzle] = useState(null)
   const [guess, setGuess] = useState('')
   const [feedback, setFeedback] = useState('')
+  const [status, setStatus] = useState('idle')
 
   const loadNext = async () => {
+    setStatus('loading')
     const res = await fetch(`${RESOURCE_BASE_URL}/puzzles/next?packId=${packId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
 
     if (!res.ok) {
       setFeedback('Failed to load puzzle')
+      setStatus('error')
       return
     }
 
@@ -25,12 +30,14 @@ export default function Play() {
     if (data.completed) {
       setPuzzle(null)
       setFeedback('Pack completed!')
+      setStatus('completed')
       return
     }
 
     setPuzzle(data)
     setGuess('')
     setFeedback('')
+    setStatus('ready')
   }
 
   useEffect(() => {
@@ -39,7 +46,8 @@ export default function Play() {
 
   const submitGuess = async (e) => {
     e.preventDefault()
-    setFeedback('')
+    if (!guess.trim()) return
+    setStatus('submitting')
 
     const res = await fetch(`${RESOURCE_BASE_URL}/game/submit`, {
       method: 'POST',
@@ -52,6 +60,7 @@ export default function Play() {
 
     if (!res.ok) {
       setFeedback('Submit failed')
+      setStatus('error')
       return
     }
 
@@ -60,33 +69,65 @@ export default function Play() {
 
     if (data.correct && data.nextAvailable) {
       await loadNext()
+    } else {
+      setStatus('ready')
     }
   }
 
+  const letters = useMemo(() => {
+    const clean = normalize(guess)
+    return clean.split('').slice(0, 12)
+  }, [guess])
+
   return (
-    <div className="panel">
-      <div className="panel-header">
+    <div className="game-wrap">
+      <div className="game-header">
         <div>
-          <h2>Guess the Word</h2>
-          <p className="muted">Every puzzle has one answer. No repeats.</p>
+          <h2>4 Pics 1 Word</h2>
+          <p className="muted">Find the single word that connects all four images.</p>
         </div>
+        <button type="button" className="ghost" onClick={loadNext}>
+          Skip
+        </button>
       </div>
-      {feedback && <p className="note">{feedback}</p>}
-      {!puzzle && !feedback && <p>Loading...</p>}
+
+      {feedback && (
+        <div className={`banner ${feedback.includes('Correct') ? 'success' : 'warn'}`}>
+          {feedback}
+        </div>
+      )}
+
+      {status === 'loading' && <p>Loading...</p>}
+      {status === 'completed' && <p>Pack completed. Choose another pack.</p>}
+
       {puzzle && (
         <>
-          <div className="image-grid-large">
+          <div className="game-grid">
             {puzzle.images.map((url) => (
-              <img key={url} src={url} alt="puzzle" />
+              <div key={url} className="game-tile">
+                <img src={url} alt="puzzle" />
+              </div>
             ))}
           </div>
-          <form onSubmit={submitGuess} className="guess-form">
+
+          <form onSubmit={submitGuess} className="answer-panel">
+            <label className="answer-label">Your Answer</label>
+            <div className="answer-boxes">
+              {Array.from({ length: 10 }).map((_, idx) => (
+                <div key={idx} className="answer-slot">
+                  {letters[idx] ? letters[idx].toUpperCase() : ''}
+                </div>
+              ))}
+            </div>
             <input
-              placeholder="Type your answer"
+              className="answer-input"
+              placeholder="Type your answer here"
               value={guess}
               onChange={(e) => setGuess(e.target.value)}
             />
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={status === 'submitting'}>
+              {status === 'submitting' ? 'Checking...' : 'Submit'}
+            </button>
           </form>
         </>
       )}
