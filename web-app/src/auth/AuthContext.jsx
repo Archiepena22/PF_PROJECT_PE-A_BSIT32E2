@@ -4,12 +4,20 @@ const AuthContext = createContext(null)
 
 const AUTH_BASE_URL = 'http://localhost:5139'
 
+async function safeFetch(url, options) {
+  try {
+    return await fetch(url, options)
+  } catch (err) {
+    throw new Error('Auth server not reachable. Start auth-api on http://localhost:5139')
+  }
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(null)
 
   const login = async ({ email, password }) => {
-    const res = await fetch(`${AUTH_BASE_URL}/auth/login`, {
+    const res = await safeFetch(`${AUTH_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -25,7 +33,7 @@ export function AuthProvider({ children }) {
   }
 
   const register = async ({ email, password, role }) => {
-    const res = await fetch(`${AUTH_BASE_URL}/auth/register`, {
+    const res = await safeFetch(`${AUTH_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, role })

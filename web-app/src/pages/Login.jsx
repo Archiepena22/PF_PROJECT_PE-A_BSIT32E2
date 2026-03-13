@@ -38,7 +38,6 @@ export default function Login() {
           {error && <p className="error">{error}</p>}
           <button type="submit">Sign in</button>
         </form>
-        <div className="login-hint">Use admin@4p1w.local / Admin123!</div>
       </div>
     </div>
   )
