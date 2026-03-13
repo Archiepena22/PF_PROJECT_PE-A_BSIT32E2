@@ -185,6 +185,16 @@ var tags = loaded?.Tags != null
     : new HashSet<string>(seedImages.SelectMany(i => i.Tags).Distinct(StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
 var progressStore = loaded?.ProgressStore ?? new Dictionary<string, UserProgress>();
 
+var resetToSeed = loaded != null && images.Any(i => i.Url.Contains("placehold.co", StringComparison.OrdinalIgnoreCase));
+if (resetToSeed)
+{
+    images = seedImages;
+    puzzles = seedPuzzles;
+    packs = seedPacks;
+    tags = new HashSet<string>(seedImages.SelectMany(i => i.Tags).Distinct(StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
+    progressStore = new Dictionary<string, UserProgress>();
+}
+
 if (packs.Count > 0)
 {
     var starterPackId = packs[0].Id;
@@ -212,7 +222,7 @@ void Persist()
     });
 }
 
-if (loaded == null)
+if (loaded == null || resetToSeed)
 {
     Persist();
 }
