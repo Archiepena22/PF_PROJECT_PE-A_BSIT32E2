@@ -55,6 +55,24 @@ app.UseAuthorization();
 var passwordHasher = new PasswordHasher<UserRecord>();
 var users = new List<UserRecord>();
 
+var seedAdmin = new UserRecord
+{
+    Id = Guid.NewGuid().ToString(),
+    Email = "admin@4p1w.local",
+    Role = "admin"
+};
+seedAdmin.PasswordHash = passwordHasher.HashPassword(seedAdmin, "Admin123!");
+users.Add(seedAdmin);
+
+var seedPlayer = new UserRecord
+{
+    Id = Guid.NewGuid().ToString(),
+    Email = "player@4p1w.local",
+    Role = "player"
+};
+seedPlayer.PasswordHash = passwordHasher.HashPassword(seedPlayer, "Player123!");
+users.Add(seedPlayer);
+
 app.MapPost("/auth/register", (RegisterRequest request) =>
 {
     if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))

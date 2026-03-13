@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.RateLimiting;
 
@@ -67,12 +68,31 @@ app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
+var imgCat = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Cat", Tags = new List<string> { "animal", "pet" } };
+var imgDog = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Dog", Tags = new List<string> { "animal", "pet" } };
+var imgBone = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Bone", Tags = new List<string> { "animal" } };
+var imgMilk = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Milk", Tags = new List<string> { "food" } };
+var imgApple = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Apple", Tags = new List<string> { "food", "fruit" } };
+var imgBanana = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Banana", Tags = new List<string> { "food", "fruit" } };
+var imgOrange = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Orange", Tags = new List<string> { "food", "fruit" } };
+var imgBook = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Book", Tags = new List<string> { "school" } };
+var imgPencil = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Pencil", Tags = new List<string> { "school" } };
+var imgRuler = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Ruler", Tags = new List<string> { "school" } };
+var imgClock = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Clock", Tags = new List<string> { "time" } };
+var imgSun = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Sun", Tags = new List<string> { "weather" } };
+var imgMoon = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Moon", Tags = new List<string> { "weather" } };
+var imgRain = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Rain", Tags = new List<string> { "weather" } };
+var imgSnow = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Snow", Tags = new List<string> { "weather" } };
+var imgRun = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Run", Tags = new List<string> { "verb" } };
+var imgJump = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Jump", Tags = new List<string> { "verb" } };
+var imgSwim = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Swim", Tags = new List<string> { "verb" } };
+var imgDance = new ImageAsset { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Dance", Tags = new List<string> { "verb" } };
+
 var seedImages = new List<ImageAsset>
 {
-    new() { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Cat", Tags = new List<string> { "animal" } },
-    new() { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Dog", Tags = new List<string> { "animal" } },
-    new() { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Milk", Tags = new List<string> { "food" } },
-    new() { Id = Guid.NewGuid().ToString(), Url = "https://placehold.co/300x300?text=Bone", Tags = new List<string> { "animal" } }
+    imgCat, imgDog, imgBone, imgMilk, imgApple, imgBanana, imgOrange,
+    imgBook, imgPencil, imgRuler, imgClock, imgSun, imgMoon, imgRain, imgSnow,
+    imgRun, imgJump, imgSwim, imgDance
 };
 
 var seedPuzzles = new List<Puzzle>
@@ -82,8 +102,37 @@ var seedPuzzles = new List<Puzzle>
         Id = Guid.NewGuid().ToString(),
         Answer = "pet",
         Difficulty = "easy",
-        ImageIds = seedImages.Select(i => i.Id).ToList(),
+        ImageIds = new List<string> { imgCat.Id, imgDog.Id, imgBone.Id, imgMilk.Id },
         AcceptableAnswers = new List<string> { "pets" }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Answer = "fruit",
+        Difficulty = "easy",
+        ImageIds = new List<string> { imgApple.Id, imgBanana.Id, imgOrange.Id, imgMilk.Id },
+        AcceptableAnswers = new List<string> { "fruits" }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Answer = "school",
+        Difficulty = "easy",
+        ImageIds = new List<string> { imgBook.Id, imgPencil.Id, imgRuler.Id, imgClock.Id }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Answer = "weather",
+        Difficulty = "easy",
+        ImageIds = new List<string> { imgSun.Id, imgMoon.Id, imgRain.Id, imgSnow.Id }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Answer = "action",
+        Difficulty = "medium",
+        ImageIds = new List<string> { imgRun.Id, imgJump.Id, imgSwim.Id, imgDance.Id }
     }
 };
 
@@ -93,9 +142,17 @@ var seedPacks = new List<Pack>
     {
         Id = Guid.NewGuid().ToString(),
         Name = "Starter Pack",
-        Description = "Demo puzzles",
+        Description = "Easy warm-up puzzles",
         Published = true,
-        PuzzleIds = seedPuzzles.Select(p => p.Id).ToList()
+        PuzzleIds = new List<string> { seedPuzzles[0].Id, seedPuzzles[1].Id, seedPuzzles[2].Id }
+    },
+    new()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Name = "Weather & Action",
+        Description = "A mix of verbs and sky",
+        Published = true,
+        PuzzleIds = new List<string> { seedPuzzles[3].Id, seedPuzzles[4].Id }
     }
 };
 
@@ -108,7 +165,7 @@ var puzzles = loaded?.Puzzles ?? seedPuzzles;
 var packs = loaded?.Packs ?? seedPacks;
 var tags = loaded?.Tags != null
     ? new HashSet<string>(loaded.Tags, StringComparer.OrdinalIgnoreCase)
-    : new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "animal", "food" };
+    : new HashSet<string>(seedImages.SelectMany(i => i.Tags).Distinct(StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
 var progressStore = loaded?.ProgressStore ?? new Dictionary<string, UserProgress>();
 
 if (packs.Count > 0)
@@ -136,6 +193,11 @@ void Persist()
         Tags = tags.ToList(),
         ProgressStore = progressStore
     });
+}
+
+if (loaded == null)
+{
+    Persist();
 }
 
 app.MapGet("/packs", (HttpRequest request, ClaimsPrincipal user) =>
@@ -341,7 +403,7 @@ app.MapPost("/cms/tags", (TagRequest request, ClaimsPrincipal user) =>
     return Results.Ok(tags);
 }).RequireAuthorization();
 
-app.MapDelete("/cms/tags", (TagRequest request, ClaimsPrincipal user) =>
+app.MapDelete("/cms/tags", ([FromBody] TagRequest request, ClaimsPrincipal user) =>
 {
     if (!IsAdmin(user)) return Results.Forbid();
     if (!IsValidTag(request.Tag)) return Results.BadRequest();
